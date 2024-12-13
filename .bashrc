@@ -2,7 +2,7 @@
 [[ $- != *i* ]] && return 
 
 # Notificación de Dunst
-alias hi="notify-send 'Bienvenido! ' -i ''"
+alias hi="notify-send 'Bienvenido! ' -i ''"
 
 # Colour codes
 RED="\\[\\e[1;31m\\]"
