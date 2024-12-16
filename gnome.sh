@@ -3,17 +3,28 @@
 # Este Script permite seleccionar que versión de Gnome se desea instalar
 
 # Author: @andriuzha
-# versión 1.2
-# 12 dic 2024
+# versión 2.0
+# 16 dic 2024
 # https://github.com/andriuzha/debian
 
+# Función para finalizar la instalación
+function finalizar_instalacion() {
+  clear
+  echo ""
+  echo "La instalación se ha realizado con exito."
+  echo "*Presiona ENTER para reiniciar el equipo y finalizar...*"
+  read
+  reboot
+}
 
 # Función para mostrar el menú
 function mostrar_menu() {
-  echo "**Elige la versión de Gnome que deseas instalar:**"
-  echo "1) Instalación completa de Gnome"
+  clear
+  echo "Estamos listos para iniciar"
+  echo "**Elige la versión de Gnome quieres instalar:**"
+  echo "1) Gnome Completo"
   echo "2) Gnome Básico"
-  echo "3) Gnome Lite"
+  echo "3) Gnome Esencial"
   echo "4) Gnome Mínimo"
   echo "0) Salir"
   read -p "Ingresa tu opción: " opcion
@@ -21,26 +32,36 @@ function mostrar_menu() {
 
 # Función para instalar la versión completa de Gnome
 function instalar_gnome_completo() {
-  apt update && apt install gnome
+  apt install gnome
+  finalizar_instalacion
 }
 
 # Función para instalar Gnome Básico
 function instalar_gnome_basico() {
-  apt update && apt install gnome-core
+  apt install gnome-core
+  finalizar_instalacion
 }
 
-# Función para instalar Gnome Lite
+# Función para instalar Esencial
 function instalar_gnome_lite() {
-  apt update && apt install gnome-applets gnome-backgrounds gnome-control-center gnome-session gnome-shell gnome-terminal gjs mutter
+  apt install gnome-applets gnome-backgrounds gnome-control-center gnome-session gnome-shell gnome-terminal gjs mutter
+  finalizar_instalacion
 }
 
 # Función para instalar Gnome Mínimo
 function instalar_gnome_minimo() {
-  apt update && apt install gnome-shell gnome-terminal
+  apt install gnome-shell gnome-terminal
   sleep 5
   systemctl enable gdm.service
   systemctl start gdm.service
+  finalizar_instalacion
 }
+
+# Actualizar repositorios antes de comenzar
+clear
+echo "Para poder realizar esta instalación es necesario actualizar los repositorios."
+read -p "Presiona ENTER para continuar con la actualización..." 
+apt update
 
 # Mostrar el menú y procesar la selección del usuario
 mostrar_menu
